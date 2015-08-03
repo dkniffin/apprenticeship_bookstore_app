@@ -9,6 +9,9 @@ gem 'sqlite3'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 
+# User authentication
+gem 'devise'
+
 group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
