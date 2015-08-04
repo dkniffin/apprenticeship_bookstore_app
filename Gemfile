@@ -12,7 +12,7 @@ gem 'turbolinks'
 gem 'devise'
 
 group :development, :test do
-  gem 'pry-rails'
+  gem 'byebug'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
 end

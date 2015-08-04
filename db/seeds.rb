@@ -8,4 +8,5 @@
 
 User.create!(email: 'admin@smashingboxes.com',
              password: 'password1!',
-             password_confirmation: 'password1!')
+             password_confirmation: 'password1!',
+             admin: true)
