@@ -1,5 +1,5 @@
 ActiveAdmin.register Book do
-  permit_params :title, :published_date, :author
+  permit_params :title, :published_date, :author, :category
 
   # See permitted parameters documentation:
   # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
