@@ -19,7 +19,6 @@ RSpec.describe Order, type: :model do
     it "is invalid without completed" do
       expect(no_completed).to_not be_valid
       expect(no_completed.errors).to include(:completed)
-      expect(no_completed.errors[:completed]).to include("can't be blank")
     end
   end
 end
