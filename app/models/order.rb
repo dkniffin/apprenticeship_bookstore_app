@@ -1,0 +1,5 @@
+class Order < ActiveRecord::Base
+  has_many :line_items
+
+  validates :completed, presence: true
+end
