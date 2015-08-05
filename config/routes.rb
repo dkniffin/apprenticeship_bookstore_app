@@ -9,6 +9,6 @@ Rails.application.routes.draw do
   resources :books, only: [:show, :index]
 
   resources :orders, only: [:show, :index, :edit] do
-    post "add_to_cart", to: 'orders#add_to_cart', on: :collection
+    post "add_to_cart", to: 'orders#add_to_cart', on: :collection, as: :add_to_cart
   end
 end
