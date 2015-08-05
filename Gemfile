@@ -10,7 +10,7 @@ gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'devise'
 
 group :development, :test do
-  gem 'pry-rails'
+  gem 'byebug'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
 end

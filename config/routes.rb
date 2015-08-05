@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-
-  resources :line_items
-  resources :orders
   root to: 'books#index'
 
   devise_for :admin_users, ActiveAdmin::Devise.config
@@ -9,5 +6,9 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  resources :books, only: [:show,:index]
+  resources :books, only: [:show, :index]
+
+  resources :orders, only: [:show, :index, :edit] do
+    post "add_to_cart", to: 'orders#add_to_cart', on: :collection
+  end
 end

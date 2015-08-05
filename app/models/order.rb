@@ -2,5 +2,9 @@ class Order < ActiveRecord::Base
   has_many :line_items
   belongs_to :user
 
-  validates :completed, presence: true
+  validates_inclusion_of :completed, in: [true, false]
+
+  def add_line_item(line_item)
+    line_items << line_item
+  end
 end
