@@ -1,5 +1,28 @@
-<h1>New Order</h1>
+<h1>Cart</h1>
 
-<%= render 'form' %>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Published date</th>
+      <th>Author</th>
+      <th>Category</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @order.line_items.each do |li| %>
+      <tr>
+        <td><%= link_to li.book.title, li.book %></td>
+        <td><%= li.book.published_date %></td>
+        <td><%= li.book.author %></td>
+        <td><%= li.book.category %></td>
+        <td><%= li.quantity %></td>
+      </tr>
+    <% end %>
+    <%= paginate @books %>
+  </tbody>
+</table>
 
 <%= link_to 'Back', orders_path %>
