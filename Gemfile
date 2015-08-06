@@ -9,8 +9,13 @@ gem 'turbolinks'
 gem 'activeadmin', '~> 1.0.0.pre1'
 gem 'devise'
 
+# Money
+gem 'money-rails'
+
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'
   gem 'factory_girl_rails'
+  # gem 'faker', path: '/home/dkniffin/repos/faker'
+  gem 'faker', github: 'dkniffin/faker', branch: 'temp_master'
 end

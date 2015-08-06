@@ -20,6 +20,16 @@
   <%= @book.category %>
 </p>
 
+<p>
+  <strong>Description:</strong>
+  <%= @book.description %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @book.price.format %>
+</p>
+
 <%= form_tag add_to_cart_orders_path, method: "post", as: 'line_item' do %>
   <%= label_tag "Quantity" %>
   <%= text_field_tag 'line_item[quantity]', 1, id: 'line_item_quantity' %>
