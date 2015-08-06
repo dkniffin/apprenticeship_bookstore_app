@@ -7,4 +7,8 @@ class Order < ActiveRecord::Base
   def add_line_item(line_item)
     line_items << line_item
   end
+
+  def total
+    line_items.map{|li| li.price}.reduce(:+)
+  end
 end

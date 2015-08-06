@@ -32,4 +32,12 @@ RSpec.describe LineItem, type: :model do
       expect(no_book.errors[:book]).to include("can't be blank")
     end
   end
+
+  describe "#price" do
+    let(:book) { build(:one_dollar_book) }
+    subject(:line_item) { build(:line_item, book: book, quantity: 2) }
+    it "equals the book's price * quantity" do
+      expect(line_item.price).to eq(Money.new(200))
+    end
+  end
 end
