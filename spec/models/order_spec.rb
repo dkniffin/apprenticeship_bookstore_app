@@ -21,4 +21,18 @@ RSpec.describe Order, type: :model do
       expect(no_completed.errors).to include(:completed)
     end
   end
+
+  describe "#total" do
+    let(:book) { build(:one_dollar_book) }
+    subject(:order) do
+      order = build(:open_order)
+      order.line_items << build(:line_item, book: book, quantity: 1)
+      order.line_items << build(:line_item, book: book, quantity: 2)
+      order
+    end
+
+    it "sums the line items" do
+      expect(order.total).to eq(Money.new(300))
+    end
+  end
 end
