@@ -16,7 +16,7 @@
         <td><%= link_to li.book.title, li.book %></td>
         <td><%= li.book.price.format %></td>
         <td><%= li.quantity %></td>
-        <td>X</td>
+        <td><%= link_to "X", line_item_path(li), :method => :delete, :confirm => 'Are you sure?', :class => 'delete_btn'%></td>
       </tr>
     <% end %>
     <tr>
@@ -29,5 +29,5 @@
 
 <hr />
 
-<%= link_to 'Show', @order %> |
-<%= link_to 'Back', books_path %>
+<%= link_to 'Complete Order', @order %> |
+<%= link_to 'Back to book list', books_path %>
