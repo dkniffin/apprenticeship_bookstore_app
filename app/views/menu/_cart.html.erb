@@ -1,5 +1,5 @@
 <% if user_signed_in? %>
   <li>
-  <%= link_to 'Cart', order_path(current_user.cart) %>
+  <%= link_to 'Cart', edit_order_path(current_user.cart)%>
   </li>
 <% end %>
