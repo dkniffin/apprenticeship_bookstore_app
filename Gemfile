@@ -11,6 +11,7 @@ gem 'devise'
 
 # Money
 gem 'money-rails'
+gem 'stripe'
 
 group :development, :test do
   gem 'byebug'
