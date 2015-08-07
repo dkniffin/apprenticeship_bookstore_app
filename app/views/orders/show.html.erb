@@ -25,6 +25,12 @@
   </tbody>
 </table>
 
+
+<hr />
+<% render 'finish_form' %>
+
+<hr />
+
 <% if ! @order.completed? %>
 <%= link_to 'Edit order', edit_order_path(@order) %> |
 <% end %>
