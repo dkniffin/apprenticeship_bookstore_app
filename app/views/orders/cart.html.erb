@@ -1,13 +1,12 @@
 <h1>Cart</h1>
 
-<table>
+<table id="order-table">
   <thead>
     <tr>
       <th>Title</th>
-      <th>Published date</th>
-      <th>Author</th>
-      <th>Category</th>
+      <th>Price</th>
       <th>Quantity</th>
+      <th>Delete</th>
     </tr>
   </thead>
 
@@ -15,14 +14,20 @@
     <% @order.line_items.each do |li| %>
       <tr>
         <td><%= link_to li.book.title, li.book %></td>
-        <td><%= li.book.published_date %></td>
-        <td><%= li.book.author %></td>
-        <td><%= li.book.category %></td>
+        <td><%= li.book.price.format %></td>
         <td><%= li.quantity %></td>
+        <td>X</td>
       </tr>
     <% end %>
-    <%= paginate @books %>
+    <tr>
+      <td></td>
+      <td></td>
+      <td><strong>Total:</strong><%= @order.total.format %></td>
+      <td></td>
   </tbody>
 </table>
 
-<%= link_to 'Back', orders_path %>
+<hr />
+
+<%= link_to 'Show', @order %> |
+<%= link_to 'Back', books_path %>
