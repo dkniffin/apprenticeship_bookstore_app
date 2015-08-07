@@ -9,6 +9,10 @@ class Order < ActiveRecord::Base
   end
 
   def total
-    line_items.map{|li| li.price}.reduce(:+)
+    if line_items.length == 0
+      Money.new(0)
+    else
+      line_items.map{|li| li.price}.reduce(:+)
+    end
   end
 end
