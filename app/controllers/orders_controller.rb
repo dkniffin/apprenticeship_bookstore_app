@@ -17,6 +17,11 @@ class OrdersController < InheritedResources::Base
 
   # GET /orders/:id/edit
   def edit
+    if @order.completed?
+      redirect_to order_url(@order), alert: 'This order has already been placed, and may not be edited.'
+    else
+      render :cart
+    end
   end
 
   # PUT /orders/add_to_cart
