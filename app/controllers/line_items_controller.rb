@@ -3,11 +3,22 @@ class LineItemsController < InheritedResources::Base
   before_action :set_line_item, only: [:update, :destroy]
 
   def update
-    @line_item.update(line_item_params)
+    respond_to do |format|
+      if @line_item.update(line_item_params)
+        format.html { redirect_to :back, notice: 'LineItem was successfully updated.' }
+        format.json { render json: @line_item, status: :ok }
+      else
+        format.html { render :back }
+        format.json { render json: @line_item.errors, status: :unprocessable_entity }
+      end
+    end
   end
   def destroy
     @line_item.destroy
-    redirect_to :back, notice: 'Book was successfully deleted from cart.' 
+    respond_to do |format|
+      format.html { redirect_to :back, notice: 'Book was successfully deleted from cart.' }
+      format.json { head :no_content }
+    end
   end
 
   private
