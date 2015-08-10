@@ -2,14 +2,16 @@ Feature: Bookstore Administration Panel
   Scenario: Admin Authentication
     Given I have an admin account
     When I visit the admin panel url
-    And I enter my username and password
+    And I enter my username
+    And I enter my password
     And I click submit
     Then I see a list of books in the bookstore
 
   Scenario: Invalid Login
     Given I do not have an admin account
     When I visit the admin panel url
-    And I enter my username and password
+    And I enter my username
+    And I enter my password
     And I click submit
     Then I see a flash notification that tell me that my email does not exist in the system
 

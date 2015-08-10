@@ -3,7 +3,8 @@ Feature: User Authentication
     Given I have an account on the site
     When I visit the site root path
     Then I an presented with a login page
-    When I enter my correct email and password
+    When I enter my correct email
+    And I enter my password
     And I click submit
     Then I am redirected to the book index page
 

@@ -10,8 +10,10 @@ Feature: Purchasing a Book
     When I click "Purchase"
     Then I am asked for my shipping address
     When I enter my shipping address
-    Then I am asked for my billing address and credit card
-    When I enter my billing address and credit card
+    Then I am asked for my billing address 
+    And I enter my credit card
+    When I enter my billing address
+    And I enter my credit card
     Then I am asked to review the order total
     When I click "Confirm"
     Then I am shown the order summary
