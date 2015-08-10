@@ -1,7 +1,7 @@
 Feature: Purchasing a Book
   Scenario: Happy Path
     Given I am logged into the site
-    When I am on the book index shop page
+    When I am on the book index page
     And I click on a book
     And I click "Purchase"
     Then the book is added to my cart
@@ -10,7 +10,7 @@ Feature: Purchasing a Book
     When I click "Purchase"
     Then I am asked for my shipping address
     When I enter my shipping address
-    Then I am asked for my billing address 
+    Then I am asked for my billing address
     And I enter my credit card
     When I enter my billing address
     And I enter my credit card
@@ -22,7 +22,7 @@ Feature: Purchasing a Book
 
   Scenario: Quantity adjustment
     Given I am logged into the site
-    When I am on the book index shop page
+    When I am on the book index page
     And I click on a book
     And I click "Purchase"
     Then the book is added to my cart
@@ -33,7 +33,7 @@ Feature: Purchasing a Book
   Scenario: With a saved Credit Card
     Given I am logged into the site
     And I have a credit card saved on the site
-    When I am on the book index shop page
+    When I am on the book index page
     And I click on a book
     And I click "Purchase"
     Then the book is added to my cart

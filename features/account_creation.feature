@@ -11,7 +11,7 @@ Feature: User Account Creation
     And I am sent a confirmation email
     When I visit the link in that email
     Then My email address becomes confirmed
-    And I am redirected to the book index shop page
+    And I am redirected to the book index page
 
   Scenario: Invalid Password
     Given I do not have an account on the site

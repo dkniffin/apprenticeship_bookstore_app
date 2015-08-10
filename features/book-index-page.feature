@@ -1,5 +1,4 @@
 Feature: Book index store page
-
   Scenario: Book pagination
     Given there are 100 books in the database
     And I am logged into the site
