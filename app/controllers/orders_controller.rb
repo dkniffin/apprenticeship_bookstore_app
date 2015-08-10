@@ -1,7 +1,7 @@
 require 'byebug'
 class OrdersController < InheritedResources::Base
   before_action :authenticate_user!
-  before_action :set_order, only: [:show, :edit, :update, :destroy]
+  before_action :set_order, only: [:show, :edit, :destroy, :place_order]
 
   # GET /orders
   # GET /orders.json
@@ -37,6 +37,16 @@ class OrdersController < InheritedResources::Base
         format.html { redirect_to book_url(line_item_params[:book_id]) }
         format.json { render json: current_user.cart.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # PUT /orders/:id/place_order
+  def place_order
+    @order.stripe_card_token = params[:order][:stripe_card_token]
+    if @order.save_with_payment
+      redirect_to @order, :notice => "Your order has been placed!"
+    else
+      redirect_to :back, alert: "There was an error with placing your order: #{@order.errors.full_messages.to_sentence}"
     end
   end
 

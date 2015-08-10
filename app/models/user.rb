@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   def cart
     if last_order.nil? || last_order.completed?
-      orders << Order.new({completed: false})
+      orders << Order.new
     end
     last_order
   end
