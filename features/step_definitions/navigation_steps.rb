@@ -10,3 +10,7 @@ When(/^I click "?(.*?)"?$/) do |target|
     click_on(target)
   end
 end
+
+Then(/^I am redirected to the book index page$/) do
+  expect(current_path).to eq(root_path)
+end
