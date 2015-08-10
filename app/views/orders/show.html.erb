@@ -27,7 +27,11 @@
 
 
 <hr />
-<% render 'finish_form' %>
+<% if @order.completed? %>
+  This order has been completed. Your books should arrive soon.
+<% else %>
+<%= render 'payment_form' %>
+<% end %>
 
 <hr />
 
