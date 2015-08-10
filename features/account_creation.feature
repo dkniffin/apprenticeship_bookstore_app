@@ -2,8 +2,8 @@ Feature: User Account Creation
   Scenario: Happy Path
     Given I do not have an account on the site
     When I visit the site root path
-    Then I an presented with a login page
-    When I click "Sign Up"
+    Then I am presented with a login page
+    When I click "Sign up"
     And I enter my email address
     And I enter a password with correct confirmation
     And I click submit
@@ -17,7 +17,7 @@ Feature: User Account Creation
     Given I do not have an account on the site
     When I visit the site root path
     Then I am presented with a login page
-    When I click "Sign Up"
+    When I click "Sign up"
     And I enter my email address
     And I enter a password with incorrect confirmation
     And I click submit
@@ -26,8 +26,8 @@ Feature: User Account Creation
   Scenario: Invalid Email Format
     Given I do not have an account on the site
     When I visit the site root path
-    Then I an presented with a login page
-    When I click "Sign Up"
+    Then I am presented with a login page
+    When I click "Sign up"
     And I enter "garbage" as my email address
     And I enter a password with correct password confirmation
     And I click submit
