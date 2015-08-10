@@ -17,3 +17,12 @@ end
 Then(/^I am redirected to the book index page$/) do
   expect(current_path).to eq(root_path)
 end
+
+
+Then(/^I should( not)? see "(.*?)"$/) do |negate, content|
+  if negate
+    expect(page).to not_have_content(content)
+  else
+    expect(page).to have_content(content)
+  end
+end

@@ -2,7 +2,7 @@ Feature: Bookstore Administration Panel
   Scenario: Admin Authentication
     Given I have an admin account
     When I visit the admin panel url
-    And I enter my username
+    And I enter my email
     And I enter my password
     And I click submit
     Then I see a list of books in the bookstore
@@ -10,27 +10,31 @@ Feature: Bookstore Administration Panel
   Scenario: Invalid Login
     Given I do not have an admin account
     When I visit the admin panel url
-    And I enter my username
+    And I enter my email
     And I enter my password
     And I click submit
     Then I see a flash notification that tell me that my email does not exist in the system
 
   Scenario: Adding a book
     Given I am logged into the admin panel
-    When I visit the admin panel url
+    When I visit the admin books url
     And I click "Add a Book"
     And I enter the book name "Test Book"
     And I set the books price to "135.99"
+    And I set the publish date to "2015-08-10"
+    And I set the author to "Some Person"
     And I click "Submit"
     Then I see the book on the admin panel index
     When I visit the Bookstore public book listing
     Then I should see the book "Test Book"
     And I should see the book price "$135.99"
+    And I should see the book published date "2015-08-10"
+    And I should see the author "Some Person"
 
   Scenario: Deleting a book
     Given I am logged into the admin panel
     And there is a book named "Book To Be Deleted"
-    When I visit the admin panel url
+    When I visit the admin books url
     And I click "Delete" for the book "Book To Be Deleted"
     Then I should see a prompt requesting that I confirm my decision to delete the book
     When I confirm my decision to delete the book

@@ -264,6 +264,7 @@ DEPENDENCIES
   factory_girl_rails
   faker!
   jquery-rails
+  monetize
   money-rails
   rails (= 4.2.3)
   rspec-rails
