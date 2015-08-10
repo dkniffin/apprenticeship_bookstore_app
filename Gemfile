@@ -19,4 +19,8 @@ group :development, :test do
   gem 'factory_girl_rails'
   # gem 'faker', path: '/home/dkniffin/repos/faker'
   gem 'faker', github: 'dkniffin/faker', branch: 'temp_master'
+
+  gem 'cucumber-rails', :require => false
+  # database_cleaner is not required, but highly recommended
+  gem 'database_cleaner'
 end
