@@ -8,7 +8,7 @@ Feature: User Account Creation
     And I enter a password with correct confirmation
     And I click submit
     Then I am told to check my email for a confirmation link
-    And I am sent a email confirmation mail
+    And I am sent a confirmation email
     When I visit the link in that email
     Then My email address becomes confirmed
     And I am redirected to the book index shop page
