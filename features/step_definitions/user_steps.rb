@@ -9,6 +9,17 @@ end
 Given(/^I have an account on the site$/) do
   User.create(user)
 end
+Given(/^I log in$/) do
+  step 'I visit the login page'
+  step 'I enter my email'
+  step 'I enter my password'
+  step 'I click submit'
+end
+Given(/^I am logged into the site$/) do
+  step 'I have an account on the site'
+  step 'I log in'
+end
+
 
 
 When(/^I enter my(?:| correct) email(?:| address)$/) do
@@ -18,7 +29,7 @@ When(/^I enter "(.*?)" as my email address$/) do |value|
   fill_in('Email', :with => value)
 end
 
-When(/^I enter.*(wrong|incorrect)? password$/) do |incorrect|
+When(/^I enter (?:my|the)( wrong| incorrect)? password$/) do |incorrect|
   pw = incorrect ? "incorrectPassword" : user[:password]
   fill_in('Password', :with => pw)
 end

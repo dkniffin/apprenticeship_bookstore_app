@@ -1,5 +1,8 @@
-When(/^I visit the site root path$/) do
+When(/^I visit the(?: site)? root (?:path|url|page)$/) do
   visit '/'
+end
+When(/^I (?:visit|goto|go to) the login (?:path|page)$/) do
+  visit new_user_session_path
 end
 
 When(/^I click "?(.*?)"?$/) do |target|
