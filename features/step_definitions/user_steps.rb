@@ -18,14 +18,14 @@ end
 
 
 When(/^I enter my(?:| correct) email(?:| address)$/) do
-  fill_in('Email', :with => @account[:email])
+  fill_in('Email', :with => @account.email)
 end
 When(/^I enter "(.*?)" as my email address$/) do |value|
   fill_in('Email', :with => value)
 end
 
 When(/^I enter (?:my|the)( wrong| incorrect)? password$/) do |incorrect|
-  pw = incorrect ? "incorrectPassword" : @account[:password]
+  pw = incorrect ? "incorrectPassword" : @account.password
   fill_in('Password', :with => pw)
 end
 

@@ -1,21 +1,21 @@
 Given(/^there are (\d+) books in the database$/) do |n|
   create_list(:book, n.to_i)
+  @books = Book.order('published_date DESC')
 end
 
 Then(/^I see a list of books in the (?:database|bookstore)$/) do
-  books = Book.order('published_date DESC')
-  # expect(assigns(:books)).to eq(books)
-  expect(page).to have_content('Title')
-  # expect(page).to have_css("//th[contains(.,'Published Date')]")
-  # expect(page).to have_css("//th/text[contains(.,'Author')]")
+  expect(page).to have_xpath("//th[contains(.,'Title')]")
+  expect(page).to have_xpath("//th[contains(.,'Published date')]")
+  expect(page).to have_xpath("//th[contains(.,'Author')]")
 end
 
 Then(/^the books are ordered by published date$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content(/#{@books[0].title}.*#{@books[2].title}/m)
 end
 
 Then(/^the list of (\d+) books are paginated in pages of (\d+) books per page$/) do |num_of_books, books_per_page|
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_xpath("//tr[#{books_per_page.to_i}]")
+  expect(page).to_not have_xpath("//tr[#{books_per_page.to_i+1}]")
 end
 
 When(/^I sort by "(.*?)"$/) do |sort_by|
