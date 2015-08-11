@@ -2,12 +2,14 @@
 
 <h1>Listing Books</h1>
 
+<p>Sort By: <%= link_to "Most Popular", :sort => "popularity" %></p>
+
 <table>
   <thead>
     <tr>
-      <th>Title</th>
-      <th>Published date</th>
-      <th>Author</th>
+      <th><%= link_to "Title", :sort => "title" %></th>
+      <th><%= link_to "Published date", :sort => "published_date" %></th>
+      <th><%= link_to "Author", :sort => "author" %></th>
       <th>Category</th>
     </tr>
   </thead>
