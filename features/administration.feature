@@ -5,7 +5,7 @@ Feature: Bookstore Administration Panel
     And I enter my email
     And I enter my password
     And I click submit
-    Then I see a list of books in the bookstore
+    Then I see the admin panel
 
   Scenario: Invalid Login
     Given I do not have an admin account
@@ -17,40 +17,43 @@ Feature: Bookstore Administration Panel
 
   Scenario: Adding a book
     Given I am logged into the admin panel
+    And I am logged into the site
     When I visit the admin books url
     And I click "Add a Book"
-    And I enter the book name "Test Book"
-    And I set the books price to "135.99"
-    And I set the publish date to "2015-08-10"
-    And I set the author to "Some Person"
+    And I enter the title "Test Book"
+    And I enter the price "135.99"
+    And I enter the published date "2015-08-10"
+    And I enter the author "Some Person"
     And I click "Submit"
-    Then I see the book on the admin panel index
-    When I visit the Bookstore public book listing
-    Then I should see the book "Test Book"
-    And I should see the book price "$135.99"
-    And I should see the book published date "2015-08-10"
-    And I should see the author "Some Person"
+    And I visit the admin books url
+    Then I see the book "Test Book"
+    When I visit the public book index
+    Then I see the book "Test Book"
+    And I see the book published date "2015-08-10"
+    And I see the book author "Some Person"
 
   Scenario: Deleting a book
     Given I am logged into the admin panel
+    And I am logged into the site
     And there is a book named "Book To Be Deleted"
     When I visit the admin books url
     And I click "Delete" for the book "Book To Be Deleted"
-    Then I should see a prompt requesting that I confirm my decision to delete the book
+    Then I see a prompt requesting that I confirm my decision to delete the book
     When I confirm my decision to delete the book
-    Then I should not see "Book To Be Deleted"
-    When I visit the Bookstore public book listing
-    Then I should not see "Book To Be Deleted"
+    Then I don't see "Book To Be Deleted"
+    When I visit the public book index
+    Then I don't see "Book To Be Deleted"
 
   Scenario: Editing a book
     Given I am logged into the admin panel
+    And I am logged into the site
     And there is a book named "Book To Be Edited" valued at "$135.99"
-    When I visit the admin panel url
+    When I visit the admin books url
     And I click "Edit" for the book "Book To Be Edited"
     And I change the book name to "Book That Has Been Edited"
     And I change the book price to "222.22"
     And I click "Submit"
-    Then I should see the new book's details on the admin panel
-    When I visit the Bookstore public book listing
-    Then I should see "Book That Has Been Edited"
-    And I should see "$222.22"
+    And I visit the admin books url
+    Then I see the book "Book That Has Been Edited"
+    When I visit the public book index
+    Then I see the book "Book That Has Been Edited"

@@ -7,8 +7,10 @@ end
 
 When(/^I click "?(.*?)"?$/) do |target|
   case target
-  when 'submit'
+  when /submit/i
     first('input[type="submit"]').click
+  when /(Edit|Delete)" for the book "(.*)/
+    find(:xpath, "//tr[contains(.,'#{$2}')]/td/div/a", :text => $1).click
   else
     click_on(target)
   end
@@ -19,7 +21,7 @@ Then(/^I am redirected to the book index page$/) do
 end
 
 
-Then(/^I should( not)? see "(.*?)"$/) do |negate, content|
+Then(/^I( don't)? see "(.*?)"$/) do |negate, content|
   if negate
     expect(page).to not_have_content(content)
   else

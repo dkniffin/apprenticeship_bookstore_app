@@ -1,5 +1,6 @@
 Given(/^I do not have an account on the site$/) do
   User.delete_all
+  @account = OpenStruct.new({:email => 'not.a.user@nowhere.invalid', :password => 'bogus'})
 end
 Given(/^I have an account on the site$/) do
   @account = User.create({ :email => 'test@test.com', :password => 'password123' })
@@ -29,11 +30,11 @@ When(/^I enter (?:my|the)( wrong| incorrect)? password$/) do |incorrect|
   fill_in('Password', :with => pw)
 end
 
-When(/^I enter a password with correct confirmation$/) do
+When(/^I enter a password with correct(?: password)? confirmation$/) do
   fill_in('Password', :with => @account[:password])
   fill_in('Password confirmation', :with => @account[:password])
 end
-When(/^I enter a password with incorrect confirmation$/) do
+When(/^I enter a password with incorrect(?: password)? confirmation$/) do
   fill_in('Password', :with => @account[:password])
   fill_in('Password confirmation', :with => "!thesame")
 end
