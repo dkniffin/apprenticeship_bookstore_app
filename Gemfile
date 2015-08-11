@@ -22,6 +22,7 @@ group :development, :test do
   gem 'faker', github: 'dkniffin/faker', branch: 'temp_master'
 
   gem 'cucumber-rails', :require => false
+  gem 'capybara-webkit'
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
 end

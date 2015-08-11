@@ -23,7 +23,7 @@ end
 
 Then(/^I( don't)? see "(.*?)"$/) do |negate, content|
   if negate
-    expect(page).to not_have_content(content)
+    expect(page).to_not have_content(content)
   else
     expect(page).to have_content(content)
   end

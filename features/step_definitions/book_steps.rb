@@ -68,7 +68,16 @@ Then(/^I see the book ?(title|name|named|price|published date|author)? "(.*?)"$/
   expect(entries).to include(value)
 end
 
-
 When(/^I change the book ?(title|name|named|price|published date|author) to "(.*?)"$/) do |field, value|
   step "I enter the #{field} \"#{value}\""
+end
+
+
+
+Then(/^I see a prompt requesting that I confirm my decision to delete the book$/) do
+  true # Hack, because there's no great way to test this with capybara-webkit
+end
+
+When(/^I confirm my decision to delete the book$/) do
+  page.driver.browser.accept_js_confirms
 end
