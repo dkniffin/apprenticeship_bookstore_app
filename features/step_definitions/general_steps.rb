@@ -13,7 +13,8 @@ When(/^I click "?(.*?)"?$/) do |target|
     find(:xpath, "//tr[contains(.,'#{$2}')]/td/div/a", :text => $1).click
   when /on a book/i
     book_link = all(:xpath, "//tr[contains(@class,'row-book')]/td[contains(@class,'col-title')]/a").sample
-    @book = book_link.text # Save for referencing later
+    id = book_link[:href].gsub('/books/','')
+    @book = Book.find(id) # Save for referencing later
     book_link.click
   else
     click_on(target)

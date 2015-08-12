@@ -15,9 +15,7 @@ Feature: Purchasing a Book
     When I enter my billing address
     Then I am asked for my credit card
     When I enter my credit card
-    Then I am asked to review the order total
-    When I click "Confirm"
-    Then I am shown the order summary
+    And I click "Submit Order"
     And my credit card is saved for future purchases
     And I am emailed an order invoice containing the books details, quantity, subtotal, and order total
 
@@ -30,8 +28,9 @@ Feature: Purchasing a Book
     And I click "Add to Cart"
     Then the book is added to my cart with quantity 2
     When I visit my cart
-    And I adjust the quantity of the book that I want to 3
-    Then I see 3 displayed as the quantity of the book I want to purchase
+    Then I see the book in my cart with quantity 2
+    When I adjust the quantity of the book to 3
+    Then I see the book in my cart with quantity 3
 
   Scenario: With a saved Credit Card
     Given I am logged into the site
