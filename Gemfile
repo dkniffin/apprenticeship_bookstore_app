@@ -23,6 +23,7 @@ group :development, :test do
 
   gem 'cucumber-rails', :require => false
   gem 'capybara-webkit'
+  gem 'email_spec'
   # database_cleaner is not required, but highly recommended
   gem 'database_cleaner'
 end

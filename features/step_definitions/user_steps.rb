@@ -1,6 +1,6 @@
 Given(/^I do not have an account on the site$/) do
   User.delete_all
-  @account = OpenStruct.new({:email => 'not.a.user@nowhere.invalid', :password => 'bogus'})
+  @account = OpenStruct.new({:email => 'not.a.user@nowhere.invalid', :password => 'boguspassword'})
 end
 Given(/^I have an account on the site$/) do
   @account = User.create({ :email => 'test@test.com', :password => 'password123' })
@@ -31,11 +31,11 @@ When(/^I enter (?:my|the)( wrong| incorrect)? password$/) do |incorrect|
 end
 
 When(/^I enter a password with correct(?: password)? confirmation$/) do
-  fill_in('Password', :with => @account[:password])
-  fill_in('Password confirmation', :with => @account[:password])
+  fill_in('Password', :with => @account.password)
+  fill_in('Password confirmation', :with => @account.password)
 end
 When(/^I enter a password with incorrect(?: password)? confirmation$/) do
-  fill_in('Password', :with => @account[:password])
+  fill_in('Password', :with => @account.password)
   fill_in('Password confirmation', :with => "!thesame")
 end
 
@@ -60,7 +60,7 @@ Then(/^I am notified that my email address is invalid\.$/) do
   expect(page).to have_content('invalid')
 end
 
-# Then(/^I am told to check my email for a confirmation link$/) do
-#   expect(page).to have_content('email')
-#   expect(page).to have_content('confirmation link')
-# end
+Then(/^I am told to check my email for a confirmation link$/) do
+  expect(page).to have_content('email')
+  expect(page).to have_content('confirmation link')
+end
