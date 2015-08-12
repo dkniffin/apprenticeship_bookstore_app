@@ -32,7 +32,8 @@ order =
     Stripe.createToken(card, order.handleStripeResponse)
   handleStripeResponse: (status, response) ->
     if status == 200
-      $('#order_stripe_card_token').val(response.id)
+      $('#user_stripe_card_token').val(response.id)
+      false
       $('#payment_form')[0].submit()
     else
       $('#stripe_error').text(response.error.message)

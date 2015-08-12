@@ -25,14 +25,14 @@ class Order < ActiveRecord::Base
       charge = Stripe::Charge.create(
         :amount => total.cents,
         :currency => "usd",
-        :source => stripe_card_token, # obtained with Stripe.js
+        :customer => user.stripe_customer_token, # obtained with Stripe.js
         :description => "Order ##{id}"
       )
       self.stripe_token = charge.id
       save!
     end
   rescue Stripe::InvalidRequestError => e
-    logger.error "Stripe error while creating customer: #{e.message}"
+    logger.error "Stripe error while creating charge: #{e.message}"
     errors.add :base, "There was a problem with your credit card."
     false
   end

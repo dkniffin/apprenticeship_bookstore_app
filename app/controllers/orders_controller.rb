@@ -42,7 +42,12 @@ class OrdersController < InheritedResources::Base
 
   # PUT /orders/:id/place_order
   def place_order
-    @order.stripe_card_token = params[:order][:stripe_card_token]
+    if @order.user.stripe_customer_token.nil?
+      @order.user.stripe_card_token = params[:user][:stripe_card_token]
+      @order.user.save_card
+    end
+    @order.user.update(user_params)
+
     if @order.save_with_payment
       redirect_to @order, :notice => "Your order has been placed!"
     else
@@ -59,6 +64,11 @@ class OrdersController < InheritedResources::Base
     def line_item_params
       params.require(:line_item).permit(:quantity, :book_id)
     end
+
+    def user_params
+      params.require(:user).permit(:billing_address, :shipping_address)
+    end
+
 
     def order_params
       params.require(:order).permit()
