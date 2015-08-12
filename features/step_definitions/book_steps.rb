@@ -2,6 +2,10 @@ Given(/^there are (\d+) books in the database$/) do |n|
   create_list(:book, n.to_i)
   @books = Book.order('published_date DESC')
 end
+Given(/^there are some books in the database$/) do
+  n = rand(10..100)
+  step "there are #{n} books in the database"
+end
 Given(/^there is a book named "(.*?)"$/) do |title|
   create(:book, title: title)
 end
@@ -22,11 +26,11 @@ Then(/^the list of (\d+) books are paginated in pages of (\d+) books per page$/)
 end
 
 When(/^I sort by "(.*?)"$/) do |sort_by|
-  pending # express the regexp above with the code you wish you had
+  step "click #{sort_by}"
 end
 
 Then(/^the books are re\-sorted based on the amount of times they are purchased$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content(/#{@books[0].title}.*#{@books[2].title}/m)
 end
 
 When(/^I enter a book's title into the book search field$/) do

@@ -7,11 +7,14 @@ Feature: User Account Creation
     And I enter my email address
     And I enter a password with correct confirmation
     And I click submit
-    Then I am told to check my email for a confirmation link
-    And I am sent a confirmation email
-    When I visit the link in that email
+    Then I am told to check my email for a confirmation link    
+    And I should receive an email
+    When I open the email
+    Then I should see "confirm" in the email body
+    When I follow "confirm" in the email
     Then My email address becomes confirmed
     And I am redirected to the book index page
+
 
   Scenario: Invalid Password
     Given I do not have an account on the site

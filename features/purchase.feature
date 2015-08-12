@@ -1,9 +1,10 @@
 Feature: Purchasing a Book
   Scenario: Happy Path
     Given I am logged into the site
-    When I am on the book index page
+    And there are some books in the database
+    When I visit the public book index
     And I click on a book
-    And I click "Purchase"
+    And I click "Add to Cart"
     Then the book is added to my cart
     When I visit my cart
     Then I see the book in my cart
@@ -11,9 +12,9 @@ Feature: Purchasing a Book
     Then I am asked for my shipping address
     When I enter my shipping address
     Then I am asked for my billing address
-    And I enter my credit card
     When I enter my billing address
-    And I enter my credit card
+    Then I am asked for my credit card
+    When I enter my credit card
     Then I am asked to review the order total
     When I click "Confirm"
     Then I am shown the order summary
@@ -22,20 +23,23 @@ Feature: Purchasing a Book
 
   Scenario: Quantity adjustment
     Given I am logged into the site
-    When I am on the book index page
+    And there are some books in the database
+    When I visit the public book index
     And I click on a book
-    And I click "Purchase"
-    Then the book is added to my cart
+    And I enter 2 for the quantity
+    And I click "Add to Cart"
+    Then the book is added to my cart with quantity 2
     When I visit my cart
-    And I adjust the quantity of the book that I want to 2
-    Then I see 2 displayed as the quantity of the book I want to purchase
+    And I adjust the quantity of the book that I want to 3
+    Then I see 3 displayed as the quantity of the book I want to purchase
 
   Scenario: With a saved Credit Card
     Given I am logged into the site
+    And there are some books in the database
     And I have a credit card saved on the site
-    When I am on the book index page
+    When I visit the public book index
     And I click on a book
-    And I click "Purchase"
+    And I click "Add to Cart"
     Then the book is added to my cart
     When I visit my cart
     Then I see the book in my cart

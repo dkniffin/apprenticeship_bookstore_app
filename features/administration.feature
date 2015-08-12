@@ -32,7 +32,6 @@ Feature: Bookstore Administration Panel
     And I see the book published date "2015-08-10"
     And I see the book author "Some Person"
 
-  @javascript
   Scenario: Deleting a book
     Given I am logged into the admin panel
     And I am logged into the site
