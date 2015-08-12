@@ -22,7 +22,6 @@ class Order < ActiveRecord::Base
 
   def save_with_payment
     if valid?
-      puts "CARD TOKEN = #{stripe_card_token}"
       charge = Stripe::Charge.create(
         :amount => total.cents,
         :currency => "usd",

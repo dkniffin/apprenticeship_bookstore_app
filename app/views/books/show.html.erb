@@ -31,7 +31,7 @@
 </p>
 
 <%= form_tag add_to_cart_orders_path, method: "post", as: 'line_item' do %>
-  <%= label_tag "Quantity" %>
+  <%= label_tag 'line_item_quantity', "Quantity" %>
   <%= text_field_tag 'line_item[quantity]', 1, id: 'line_item_quantity' %>
   <%= hidden_field_tag 'line_item[book_id]', @book.id %>
   <%= submit_tag "Add to Cart" %>
