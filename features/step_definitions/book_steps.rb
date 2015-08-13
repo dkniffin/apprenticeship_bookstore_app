@@ -9,6 +9,13 @@ end
 Given(/^there is a book named "(.*?)"$/) do |title|
   create(:book, title: title)
 end
+Given(/^some books have been ordered$/) do
+  10.times do
+    b = Book.order("RANDOM()").first
+    o = Order.create()
+    o.line_items << LineItem.create({:book => b, :quantity => rand(1..5)})
+  end
+end
 
 Then(/^I see a list of books in the (?:database|bookstore)$/) do
   expect(page).to have_xpath("//th[contains(.,'Title')]")
@@ -26,10 +33,11 @@ Then(/^the list of (\d+) books are paginated in pages of (\d+) books per page$/)
 end
 
 When(/^I sort by "(.*?)"$/) do |sort_by|
-  step "click #{sort_by}"
+  step "I click \"#{sort_by}\""
 end
 
 Then(/^the books are re\-sorted based on the amount of times they are purchased$/) do
+  @books = Book.order('order_count')
   expect(page).to have_content(/#{@books[0].title}.*#{@books[2].title}/m)
 end
 
