@@ -41,6 +41,11 @@ Then(/^my credit card is saved for future purchases$/) do
   expect(@account.stripe_customer_token).to_not be_nil
 end
 
+When(/^I confirm using my saved credit card$/) do
+  step 'I click "Submit Order"'
+end
+
+
 Then(/^I am emailed an order invoice containing the books details, quantity, subtotal, and order total$/) do
   pending # express the regexp above with the code you wish you had
 end
@@ -59,4 +64,13 @@ end
 
 Then(/^I am asked if I want to use my already saved credit card$/) do
   expect(page).to have_content("Enter new payment info")
+end
+
+Then(/^I am asked to review the order total$/) do
+  expect(page).to have_content("Does this look good?")
+end
+
+
+Then(/^I am shown the order summary$/) do
+  expect(page).to have_content("This order has been completed.")
 end

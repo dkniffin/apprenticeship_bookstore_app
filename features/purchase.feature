@@ -46,7 +46,7 @@ Feature: Purchasing a Book
     Then I am asked for my shipping address
     When I enter my shipping address
     Then I am asked if I want to use my already saved credit card
-    When I click "Yes"
+    When I confirm using my saved credit card
     Then I am asked to review the order total
     When I click "Confirm"
     Then I am shown the order summary
