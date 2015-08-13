@@ -20,7 +20,7 @@ class Order < ActiveRecord::Base
     ! stripe_token.nil?
   end
 
-  def save_with_payment
+  def charge_card
     if valid?
       charge = Stripe::Charge.create(
         :amount => total.cents,

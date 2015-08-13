@@ -1,7 +1,7 @@
 require 'byebug'
 class OrdersController < InheritedResources::Base
   before_action :authenticate_user!
-  before_action :set_order, only: [:show, :edit, :destroy, :place_order]
+  before_action :set_order, only: [:show, :edit, :destroy, :place_order, :confirm_order]
 
   # GET /orders
   # GET /orders.json
@@ -47,8 +47,12 @@ class OrdersController < InheritedResources::Base
       @order.user.save_card
     end
     @order.user.update(user_params)
+    render :confirmation
+  end
 
-    if @order.save_with_payment
+  # PUT /orders/:id/confirm_order
+  def confirm_order
+    if @order.charge_card
       redirect_to @order, :notice => "Your order has been placed!"
     else
       redirect_to :back, alert: "There was an error with placing your order: #{@order.errors.full_messages.to_sentence}"

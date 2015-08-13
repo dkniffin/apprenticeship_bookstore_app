@@ -38,7 +38,7 @@ order =
     console.log('RESPONSE: ' + response)
     if status == 200
       $('#user_stripe_card_token').val(response.id)
-      # $('#payment_form')[0].submit()
+      $('#payment_form')[0].submit()
     else
       $('#stripe_error').text(response.error.message)
       $('input[type=submit]').attr('disabled', false)

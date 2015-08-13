@@ -1,0 +1,8 @@
+<h1>Order Confirmation</h1>
+
+<%= render 'summary_table' %>
+
+<p>Does this look good?</p>
+<br/>
+<%= link_to 'Confirm', confirm_order_path(@order), :method => :post %> or
+<%= link_to 'No, go back', edit_order_path(@order) %>
