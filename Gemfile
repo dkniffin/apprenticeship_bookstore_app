@@ -14,6 +14,8 @@ gem 'money-rails'
 gem 'monetize'
 gem 'stripe'
 
+gem 'email_validator'
+
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'

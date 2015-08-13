@@ -59,8 +59,7 @@ Then(/^I am notified that my password is incorrect$/) do
 end
 
 Then(/^I am notified that my email address is invalid\.$/) do
-  expect(page).to have_content('email')
-  expect(page).to have_content('invalid')
+  expect(page).to have_content('Email is invalid')
 end
 
 Then(/^I am told to check my email for a confirmation link$/) do

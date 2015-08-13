@@ -111,6 +111,8 @@ GEM
     email_spec (1.6.0)
       launchy (~> 2.1)
       mail (~> 2.2)
+    email_validator (1.6.0)
+      activemodel
     erubis (2.7.0)
     execjs (2.5.2)
     factory_girl (4.5.0)
@@ -272,6 +274,7 @@ DEPENDENCIES
   database_cleaner
   devise
   email_spec
+  email_validator
   factory_girl_rails
   faker!
   jquery-rails

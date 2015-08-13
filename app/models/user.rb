@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :recoverable, :rememberable,
     :trackable, :validatable
 
+  validates :email, :presence => true, :email => true
+
   has_many :orders
 
   attr_accessor :stripe_card_token
