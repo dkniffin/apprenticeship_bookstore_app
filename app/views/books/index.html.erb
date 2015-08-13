@@ -4,6 +4,14 @@
 
 <p>Sort By: <%= link_to "Most Popular", :sort => "popularity" %></p>
 
+<%= search_form_for @q do |f| %>
+
+  <%= f.label :title_cont, "Search" %>
+  <%= f.search_field :title_cont %>
+
+  <%= f.submit %>
+<% end %>
+
 <table>
   <thead>
     <tr>

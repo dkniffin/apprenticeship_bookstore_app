@@ -42,11 +42,12 @@ Then(/^the books are re\-sorted based on the amount of times they are purchased$
 end
 
 When(/^I enter a book's title into the book search field$/) do
-  pending # express the regexp above with the code you wish you had
+  @searched_book = @books[0]
+  fill_in("Search", :with => @searched_book.title)
 end
 
 Then(/^I am shown a list of books with that title$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content(@searched_book.title)
 end
 
 

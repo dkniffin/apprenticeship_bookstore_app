@@ -16,6 +16,8 @@ gem 'stripe'
 
 gem 'email_validator'
 
+gem 'ransack'
+
 group :development, :test do
   gem 'byebug'
   gem 'rspec-rails'

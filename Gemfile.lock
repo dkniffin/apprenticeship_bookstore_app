@@ -281,6 +281,7 @@ DEPENDENCIES
   monetize
   money-rails
   rails (= 4.2.3)
+  ransack
   rspec-rails
   sqlite3
   stripe

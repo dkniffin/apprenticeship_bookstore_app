@@ -6,12 +6,11 @@ class BooksController < ApplicationController
   # GET /books.json
   def index
     order = params[:sort] || 'published_date'
-    case order
-    when 'popularity'
-      @books = Book.order('order_count').page params[:page]
-    else
-      @books = Book.order(order).page params[:page]
-    end
+    order = 'order_count' if order == 'popularity'
+
+    @q = Book.order(order).ransack(params[:q])
+
+    @books = @q.result.page params[:page]
   end
 
   # GET /books/1
