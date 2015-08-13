@@ -7,8 +7,8 @@ end
 
 When(/^I click "?(.*?)"?$/) do |target|
   case target
-  when /submit/i
-    first('input[type="submit"]').click
+  when /^submit$/i
+    find('input[type="submit"]').click
   when /(Edit|Delete)" for the book "(.*)/
     find(:xpath, "//tr[contains(.,'#{$2}')]/td/div/a", :text => $1).click
   when /on a book/i
@@ -16,6 +16,12 @@ When(/^I click "?(.*?)"?$/) do |target|
     id = book_link[:href].gsub('/books/','')
     @book = Book.find(id) # Save for referencing later
     book_link.click
+  when /^Submit Order$/i
+    @account = double(@account,
+      :stripe_customer_token => "cus_6mdp1ktPtNooEj",
+      :save_card => ""
+    )
+    click_on(target)
   else
     click_on(target)
   end

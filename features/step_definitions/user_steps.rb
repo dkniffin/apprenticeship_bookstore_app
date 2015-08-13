@@ -15,7 +15,10 @@ Given(/^I am logged into the site$/) do
   step 'I have an account on the site'
   step 'I log in'
 end
-
+Given(/^I have a credit card saved on the site$/) do
+  @account.stripe_customer_token = "cus_6mdp1ktPtNooEj"
+  @account.save!
+end
 
 
 When(/^I enter my(?:| correct) email(?:| address)$/) do

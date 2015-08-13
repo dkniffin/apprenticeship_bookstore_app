@@ -14,7 +14,7 @@ end
 Then(/^I see the book in my cart(?: with quantity (\d+))?$/) do |quantity|
   expect(page).to have_content(@book.title)
   if quantity
-    expect(page).to have_xpath("//input[@id=\"line_item_quantity\" and @value=\"#{quantity}\"]")
+    expect(page).to have_field("line_item_quantity", with: quantity)
   end
 end
 
@@ -38,7 +38,7 @@ end
 
 
 Then(/^my credit card is saved for future purchases$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(@account.stripe_customer_token).to_not be_nil
 end
 
 Then(/^I am emailed an order invoice containing the books details, quantity, subtotal, and order total$/) do
@@ -57,18 +57,6 @@ When /^I adjust the quantity of the book to (\d+)$/ do |quantity|
   end
 end
 
-When(/^I adjust the quantity of the book that I want to (\d+)$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
-
-Then(/^I see (\d+) displayed as the quantity of the book I want to purchase$/) do |arg1|
-  pending # express the regexp above with the code you wish you had
-end
-
-Given(/^I have a credit card saved on the site$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
 Then(/^I am asked if I want to use my already saved credit card$/) do
-  pending # express the regexp above with the code you wish you had
+  expect(page).to have_content("Enter new payment info")
 end

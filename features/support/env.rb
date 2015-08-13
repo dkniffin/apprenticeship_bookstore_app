@@ -5,6 +5,7 @@
 # files.
 
 require 'cucumber/rails'
+require 'cucumber/rspec/doubles'
 
 # Capybara defaults to CSS3 selectors rather than XPath.
 # If you'd prefer to use XPath, just uncomment this line and adjust any
@@ -57,3 +58,6 @@ end
 Cucumber::Rails::Database.javascript_strategy = :truncation
 
 Capybara.javascript_driver = :webkit
+Capybara::Webkit.configure do |config|
+  config.allow_url "js.stripe.com"
+end

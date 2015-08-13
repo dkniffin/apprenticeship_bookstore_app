@@ -1,6 +1,6 @@
 Given(/^there are (\d+) books in the database$/) do |n|
   create_list(:book, n.to_i)
-  @books = Book.order('published_date DESC')
+  @books = Book.order('published_date')
 end
 Given(/^there are some books in the database$/) do
   n = rand(10..100)

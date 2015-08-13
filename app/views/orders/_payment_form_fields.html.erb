@@ -6,8 +6,13 @@
 <%= f.hidden_field :stripe_card_token %>
 
 <% if @order.user.stripe_customer_token.present? %>
-  Credit card has been provided.
+  Credit card has been provided.<br/>
+  <%= link_to 'Enter new payment info', '#', :onclick => "$('#payment_fields').show();" %>
+
+  <div id='payment_fields' style='display:none;'>
 <% else %>
+  <div id='payment_fields'>
+<% end %>
   <div class="field">
     <%= label_tag :card_number, "Credit Card Number" %>
     <%= text_field_tag :card_number, nil, name: nil %>
@@ -21,8 +26,8 @@
     <%= select_month nil, {add_month_numbers: true}, {name: nil, id: "card_month"} %>
     <%= select_year nil, {start_year: Date.today.year, end_year: Date.today.year+15}, {name: nil, id: "card_year"} %>
   </div>
-<% end %>
-<br/>
+</div>
+<br/><br/>
 <div id="stripe_error">
   <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
 </div>

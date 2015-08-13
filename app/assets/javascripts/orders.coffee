@@ -24,17 +24,21 @@ order =
         order.processCard()
         false
   processCard: ->
-    card =
-      number: $('#card_number').val()
-      cvc: $('#card_code').val()
-      expMonth: $('#card_month').val()
-      expYear: $('#card_year').val()
-    Stripe.createToken(card, order.handleStripeResponse)
+    if $('#payment_fields').is(":visible")
+      card =
+        number: $('#card_number').val()
+        cvc: $('#card_code').val()
+        expMonth: $('#card_month').val()
+        expYear: $('#card_year').val()
+      console.log('MEH')
+      Stripe.createToken(card, order.handleStripeResponse)
+    else
+      $('#payment_form')[0].submit()
   handleStripeResponse: (status, response) ->
+    console.log('RESPONSE: ' + response)
     if status == 200
       $('#user_stripe_card_token').val(response.id)
-      false
-      $('#payment_form')[0].submit()
+      # $('#payment_form')[0].submit()
     else
       $('#stripe_error').text(response.error.message)
       $('input[type=submit]').attr('disabled', false)
