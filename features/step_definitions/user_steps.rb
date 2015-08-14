@@ -3,7 +3,7 @@ Given(/^I do not have an account on the site$/) do
   @account = OpenStruct.new({:email => 'not.a.user@nowhere.invalid', :password => 'boguspassword'})
 end
 Given(/^I have an account on the site$/) do
-  @account = User.create({ :email => 'test@test.com', :password => 'password123' })
+  @account = User.create({ :email => 'test@test.com', :password => 'password123', :confirmed_at => DateTime.now })
 end
 Given(/^I log in$/) do
   step 'I visit the login page'
@@ -65,4 +65,17 @@ end
 Then(/^I am told to check my email for a confirmation link$/) do
   expect(page).to have_content('email')
   expect(page).to have_content('confirmation link')
+end
+
+Then(/^I am sent a confirmation email$/) do
+  expect(unread_emails_for(@account.email).size).to eql 1
+end
+
+When(/^I visit the link in that email$/) do
+  open_last_email_for(@account.email)
+  click_email_link_matching /confirm/
+end
+
+Then(/^My email address becomes confirmed$/) do
+  expect(User.first.confirmed_at).to_not be_nil
 end
