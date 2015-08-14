@@ -1,12 +1,9 @@
-<h1>Cart</h1>
-
 <table id="order-table">
   <thead>
     <tr>
       <th>Title</th>
       <th>Price</th>
       <th>Quantity</th>
-      <th>Delete</th>
     </tr>
   </thead>
 
@@ -15,8 +12,7 @@
       <tr>
         <td><%= link_to li.book.title, li.book %></td>
         <td><%= li.book.price.format %></td>
-        <td><%= form_for(li) do |f| %><%= f.text_field :quantity%><% end %></td>
-        <td><%= link_to "X", line_item_path(li), :method => :delete, :confirm => 'Are you sure?', :class => 'delete_btn'%></td>
+        <td><%= li.quantity %></td>
       </tr>
     <% end %>
     <tr>
@@ -26,8 +22,3 @@
       <td></td>
   </tbody>
 </table>
-
-<hr />
-
-<%= link_to 'Purchase', @order %> |
-<%= link_to 'Back to book list', books_path %>

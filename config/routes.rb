@@ -4,13 +4,18 @@ Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
 
-  devise_for :users
+  devise_for :users, controllers: { registrations: "users/registrations", confirmations: "users/confirmations" }
 
   resources :books, only: [:show, :index]
 
   resources :orders, only: [:show, :index, :edit] do
-    post "add_to_cart", to: 'orders#add_to_cart', on: :collection, as: :add_to_cart
-    post "place", to: 'orders#place_order', on: :member
+    collection do
+      post "add_to_cart", to: 'orders#add_to_cart', as: :add_to_cart
+    end
+    member do
+      post "place", to: 'orders#place_order'
+      post "confirm", to: 'orders#confirm_order'
+    end
   end
 
   resources :line_items, only: [:update, :destroy]

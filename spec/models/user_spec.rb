@@ -22,12 +22,16 @@ RSpec.describe User, type: :model do
   end
   describe "invalid user" do
     let(:no_email) { build(:user, email: nil) }
+    let(:invalid_email) { build(:user, email: 'bogus') }
     let(:no_password) { build(:user, password: nil) }
 
     it "is invalid without email" do
       expect(no_email).to_not be_valid
       expect(no_email.errors).to include(:email)
       expect(no_email.errors[:email]).to include("can't be blank")
+    end
+    it "is invalid with invalid email" do
+      expect(invalid_email).to_not be_valid
     end
     it "is invalid without password" do
       expect(no_password).to_not be_valid

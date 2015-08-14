@@ -1,0 +1,7 @@
+
+<h3>Payment Information</h3>
+<%= form_for @order.user, :url => place_order_path, :html => {:id => 'payment_form'}, :method => :post do |f| %>
+  <%= render :partial => 'shipping_form_fields', :locals=>{:f=>f} %>
+  <%= render :partial => 'payment_form_fields', :locals=>{:f=>f} %>
+  <%= submit_tag "Submit Order" %>
+<% end %>

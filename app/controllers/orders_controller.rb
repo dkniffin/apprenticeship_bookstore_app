@@ -1,7 +1,7 @@
 require 'byebug'
 class OrdersController < InheritedResources::Base
   before_action :authenticate_user!
-  before_action :set_order, only: [:show, :edit, :destroy, :place_order]
+  before_action :set_order, only: [:show, :edit, :destroy, :place_order, :confirm_order]
 
   # GET /orders
   # GET /orders.json
@@ -42,8 +42,17 @@ class OrdersController < InheritedResources::Base
 
   # PUT /orders/:id/place_order
   def place_order
-    @order.stripe_card_token = params[:order][:stripe_card_token]
-    if @order.save_with_payment
+    if @order.user.stripe_customer_token.nil?
+      @order.user.stripe_card_token = params[:user][:stripe_card_token]
+      @order.user.save_card
+    end
+    @order.user.update(user_params)
+    render :confirmation
+  end
+
+  # PUT /orders/:id/confirm_order
+  def confirm_order
+    if @order.charge_card
       redirect_to @order, :notice => "Your order has been placed!"
     else
       redirect_to :back, alert: "There was an error with placing your order: #{@order.errors.full_messages.to_sentence}"
@@ -59,6 +68,11 @@ class OrdersController < InheritedResources::Base
     def line_item_params
       params.require(:line_item).permit(:quantity, :book_id)
     end
+
+    def user_params
+      params.require(:user).permit(:billing_address, :shipping_address)
+    end
+
 
     def order_params
       params.require(:order).permit()
