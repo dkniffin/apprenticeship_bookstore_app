@@ -6,8 +6,6 @@ RSpec.describe Order, type: :model do
   it { is_expected.to respond_to(:completed) }
   it { is_expected.to respond_to(:line_items) }
   it { is_expected.to respond_to(:stripe_token) }
-  it { is_expected.to respond_to(:billing_address) }
-  it { is_expected.to respond_to(:shipping_address) }
 
   describe "valid order" do
     subject(:order) { build(:order) }

@@ -6,6 +6,8 @@ RSpec.describe User, type: :model do
   it { is_expected.to respond_to(:email) }
   it { is_expected.to respond_to(:password) }
   it { is_expected.to respond_to(:orders) }
+  it { is_expected.to respond_to(:billing_address) }
+  it { is_expected.to respond_to(:shipping_address) }
 
   describe "valid user" do
     subject(:user) { build(:user) }
