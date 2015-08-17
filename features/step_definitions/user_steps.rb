@@ -33,25 +33,27 @@ Given(/^I have a credit card saved on the site$/) do
 end
 
 
-When(/^I enter my(?:| correct) email(?:| address)$/) do
-  fill_in('Email', :with => account.email)
+When(/^I enter my(?:| correct)( admin)? email(?:| address)$/) do |admin|
+  deetz = admin ? account_details(:admin) : account_details(:valid_user)
+  step "I enter \"#{deetz[:email]}\" as my email address"
 end
 When(/^I enter "(.*?)" as my email address$/) do |value|
   fill_in('Email', :with => value)
 end
 
-When(/^I enter (?:my|the)( wrong| incorrect)? password$/) do |incorrect|
-  pw = incorrect ? "incorrectPassword" : account_details[:password]
+When(/^I enter (?:my|the)( wrong| incorrect)?( admin)? password$/) do |incorrect,admin|
+  deetz = admin ? account_details(:admin) : account_details(:valid_user)
+  deetz = account_details(:invalid_user) if incorrect
+  step "I enter \"#{deetz[:password]}\" as my password"
+end
+When(/^I enter "(.*?)" as my password$/) do |pw|
   fill_in('Password', :with => pw)
 end
 
-When(/^I enter a password with correct(?: password)? confirmation$/) do
-  fill_in('Password', :with => account.password)
-  fill_in('Password confirmation', :with => account_details[:password])
-end
-When(/^I enter a password with incorrect(?: password)? confirmation$/) do
-  fill_in('Password', :with => account_details[:password])
-  fill_in('Password confirmation', :with => "!thesame")
+When(/^I enter a password with (in)?correct(?: password)? confirmation$/) do |incorrect|
+  pw = incorrect ? "!thesame" : account_details(:valid_user)[:password]
+  fill_in('Password', :with => account_details(:valid_user)[:password])
+  fill_in('Password confirmation', :with => pw)
 end
 
 When(/^I visit the link in that email$/) do
@@ -85,6 +87,7 @@ Then(/^I am told to check my email for a confirmation link$/) do
 end
 
 Then(/^I am sent a confirmation email$/) do
+  @account_id = User.last.id
   expect(unread_emails_for(account.email).size).to eql 1
 end
 

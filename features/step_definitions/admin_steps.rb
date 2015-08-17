@@ -2,13 +2,14 @@ Given(/^I do not have an admin account$/) do
   AdminUser.delete_all
 end
 Given(/^I have an admin account$/) do
-  @admin_account_id = AdminUser.create(account_details(:admin)).id
+  @admin_account = AdminUser.create(account_details(:admin))
 end
 Given(/^I am logged into the admin panel$/) do
+  deetz = account_details(:admin)
   step 'I have an admin account'
   step 'I visit the admin panel url'
-  step 'I enter my email'
-  step 'I enter my password'
+  step 'I enter my admin email'
+  step 'I enter my admin password'
   step 'I click submit'
 end
 

@@ -64,12 +64,8 @@ Capybara::Webkit.configure do |config|
 end
 
 def account_details(type=nil)
-  if type.nil?
-    if @admin_account_id
-      type = :admin
-    elsif @account_id
-      type = :valid_user
-    end
+  if type.nil? && @account_id
+    type = :valid_user
   end
   case type
   when :valid_user
@@ -81,11 +77,9 @@ def account_details(type=nil)
   end
 end
 def account
-  if @admin_account_id
-    AdminUser.find(@admin_account_id)
-  elsif @account_id
+  if @account_id
     User.find(@account_id)
   else
-    OpenStruct.new()
+    OpenStruct.new(account_details(:invalid_user))
   end
 end
