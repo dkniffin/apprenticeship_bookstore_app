@@ -1,4 +1,3 @@
-require 'byebug'
 class OrdersController < InheritedResources::Base
   before_action :authenticate_user!
   before_action :set_order, only: [:show, :edit, :destroy, :place_order, :confirm_order]
@@ -53,9 +52,10 @@ class OrdersController < InheritedResources::Base
   # PUT /orders/:id/confirm_order
   def confirm_order
     if @order.charge_card
-      redirect_to @order, :notice => "Your order has been placed!"
+      OrderMailer.order_invoice(current_user,@order).deliver_now
+      redirect_to @order, notice: "Your order has been placed!"
     else
-      redirect_to :back, alert: "There was an error with placing your order: #{@order.errors.full_messages.to_sentence}"
+      redirect_to @order, alert: "There was an error with placing your order: #{@order.errors.full_messages.to_sentence}"
     end
   end
 

@@ -16,6 +16,8 @@ Feature: Purchasing a Book
     Then I am asked for my credit card
     When I enter my credit card
     And I click "Submit Order"
+    Then I am asked to review the order total
+    When I click "Confirm"
     Then my credit card is saved for future purchases
     And I am emailed an order invoice containing the books details, quantity, subtotal, and order total
 

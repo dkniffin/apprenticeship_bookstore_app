@@ -62,3 +62,30 @@ Capybara.javascript_driver = :webkit
 Capybara::Webkit.configure do |config|
   config.allow_url "js.stripe.com"
 end
+
+def account_details(type=nil)
+  if type.nil?
+    if @admin_account_id
+      type = :admin
+    elsif @account_id
+      type = :valid_user
+    end
+  end
+  case type
+  when :valid_user
+    { :email => 'test@test.com', :password => 'password123' }
+  when :invalid_user
+    { :email => 'not.a.user@nowhere.invalid', :password => 'boguspassword' }
+  when :admin
+    { :email => 'admin@nowhere.com', :password => 'Pa$$word' }
+  end
+end
+def account
+  if @admin_account_id
+    AdminUser.find(@admin_account_id)
+  elsif @account_id
+    User.find(@account_id)
+  else
+    OpenStruct.new()
+  end
+end

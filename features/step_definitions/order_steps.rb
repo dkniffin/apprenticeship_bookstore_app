@@ -3,10 +3,10 @@ When(/^I visit my cart$/) do
 end
 
 Then(/^the book is added to my cart(?: with quantity (\d+))?$/) do |quantity|
-  books_in_cart = @account.cart.line_items.map(&:book)
+  books_in_cart = account.cart.line_items.map(&:book)
   expect(books_in_cart).to include(@book)
   if quantity
-    book_quantity = @account.cart.line_items.select{|li| li.book == @book}.map(&:quantity)
+    book_quantity = account.cart.line_items.select{|li| li.book == @book}.map(&:quantity)
     expect(book_quantity).to include(quantity.to_i)
   end
 end
@@ -37,26 +37,17 @@ When(/^I enter my (credit card|shipping address|billing address)$/) do |field|
 end
 
 
-Then(/^my credit card is saved for future purchases$/) do
-  expect(@account.stripe_customer_token).to_not be_nil
-end
 
 When(/^I confirm using my saved credit card$/) do
   step 'I click "Submit Order"'
 end
-
-
-Then(/^I am emailed an order invoice containing the books details, quantity, subtotal, and order total$/) do
-  pending # express the regexp above with the code you wish you had
-end
-
 
 When(/^I enter (\d+) for the quantity$/) do |quantity|
   fill_in("Quantity", :with => quantity)
 end
 
 When /^I adjust the quantity of the book to (\d+)$/ do |quantity|
-  line_item = @account.cart.line_items.select{|li| li.book == @book }.first
+  line_item = account.cart.line_items.select{|li| li.book == @book }.first
   within("form#edit_line_item_#{line_item.id}") do
     fill_in("line_item_quantity", :with => quantity)
   end
@@ -72,5 +63,11 @@ end
 
 
 Then(/^I am shown the order summary$/) do
-  expect(page).to have_content("This order has been completed.")
+  expect(page).to have_content("Your order has been placed!")
+end
+
+Then(/^I am emailed an order invoice containing the books details, quantity, subtotal, and order total$/) do
+  expect(unread_emails_for(account.email).size).to eql 1
+  open_last_email_for(account.email)
+  expect(current_email).to have_body_text('Summary')
 end

@@ -1,9 +1,8 @@
 Given(/^I do not have an admin account$/) do
   AdminUser.delete_all
-  @account = OpenStruct.new({:email => 'not.an.admin@nowhere.invalid', :password => 'bogus123'})
 end
 Given(/^I have an admin account$/) do
-  @account = AdminUser.create({ :email => 'admin@nowhere.com', :password => 'Pa$$word' })
+  @admin_account_id = AdminUser.create(account_details(:admin)).id
 end
 Given(/^I am logged into the admin panel$/) do
   step 'I have an admin account'

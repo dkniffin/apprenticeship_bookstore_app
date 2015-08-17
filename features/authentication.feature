@@ -1,6 +1,7 @@
 Feature: User Authentication
   Scenario: User successfully authenticates
     Given I have an account on the site
+    And My account is confirmed
     When I visit the site root path
     Then I am presented with a login page
     When I enter my correct email
@@ -10,6 +11,7 @@ Feature: User Authentication
 
   Scenario: User enters invalid authentication information
     Given I have an account on the site
+    And My account is confirmed
     When I visit the site root path
     Then I am presented with a login page
     When I enter the wrong password

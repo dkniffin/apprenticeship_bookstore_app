@@ -17,10 +17,6 @@ When(/^I click "?(.*?)"?$/) do |target|
     @book = Book.find(id) # Save for referencing later
     book_link.click
   when "Submit Order"
-    @account = double(@account,
-      :stripe_customer_token => "cus_6mdp1ktPtNooEj",
-      :save_card => ""
-    )
     click_on(target)
   else
     click_on(target)

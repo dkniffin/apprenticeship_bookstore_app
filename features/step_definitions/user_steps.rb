@@ -1,9 +1,20 @@
 Given(/^I do not have an account on the site$/) do
   User.delete_all
-  @account = OpenStruct.new({:email => 'not.a.user@nowhere.invalid', :password => 'boguspassword'})
 end
 Given(/^I have an account on the site$/) do
-  @account = User.create({ :email => 'test@test.com', :password => 'password123', :confirmed_at => DateTime.now })
+  @account_id = User.create(account_details(:valid_user)).id
+
+  allow_any_instance_of(User).to receive(:save_card) do |this|
+    this.stripe_customer_token = "cus_6mdp1ktPtNooEj"
+    this.save!
+  end
+
+  allow_any_instance_of(Order).to receive(:charge_card) { true }
+end
+Given(/^My account is confirmed$/) do
+  expect(unread_emails_for(account.email).size).to eql 1
+  open_last_email_for(account.email)
+  click_email_link_matching /confirm/
 end
 Given(/^I log in$/) do
   step 'I visit the login page'
@@ -13,33 +24,39 @@ Given(/^I log in$/) do
 end
 Given(/^I am logged into the site$/) do
   step 'I have an account on the site'
+  step 'My account is confirmed'
   step 'I log in'
 end
 Given(/^I have a credit card saved on the site$/) do
-  @account.stripe_customer_token = "cus_6mdp1ktPtNooEj"
-  @account.save!
+  account.update({:stripe_customer_token => "cus_6mdp1ktPtNooEj"})
+  account.save!
 end
 
 
 When(/^I enter my(?:| correct) email(?:| address)$/) do
-  fill_in('Email', :with => @account.email)
+  fill_in('Email', :with => account.email)
 end
 When(/^I enter "(.*?)" as my email address$/) do |value|
   fill_in('Email', :with => value)
 end
 
 When(/^I enter (?:my|the)( wrong| incorrect)? password$/) do |incorrect|
-  pw = incorrect ? "incorrectPassword" : @account.password
+  pw = incorrect ? "incorrectPassword" : account_details[:password]
   fill_in('Password', :with => pw)
 end
 
 When(/^I enter a password with correct(?: password)? confirmation$/) do
-  fill_in('Password', :with => @account.password)
-  fill_in('Password confirmation', :with => @account.password)
+  fill_in('Password', :with => account.password)
+  fill_in('Password confirmation', :with => account_details[:password])
 end
 When(/^I enter a password with incorrect(?: password)? confirmation$/) do
-  fill_in('Password', :with => @account.password)
+  fill_in('Password', :with => account_details[:password])
   fill_in('Password confirmation', :with => "!thesame")
+end
+
+When(/^I visit the link in that email$/) do
+  open_last_email_for(account.email)
+  click_email_link_matching /confirm/
 end
 
 
@@ -68,14 +85,13 @@ Then(/^I am told to check my email for a confirmation link$/) do
 end
 
 Then(/^I am sent a confirmation email$/) do
-  expect(unread_emails_for(@account.email).size).to eql 1
-end
-
-When(/^I visit the link in that email$/) do
-  open_last_email_for(@account.email)
-  click_email_link_matching /confirm/
+  expect(unread_emails_for(account.email).size).to eql 1
 end
 
 Then(/^My email address becomes confirmed$/) do
   expect(User.first.confirmed_at).to_not be_nil
+end
+
+Then(/^my credit card is saved for future purchases$/) do
+  expect(account.stripe_customer_token).to_not be_nil
 end
