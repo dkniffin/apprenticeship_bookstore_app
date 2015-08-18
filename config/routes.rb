@@ -9,14 +9,15 @@ Rails.application.routes.draw do
   resources :books, only: [:show, :index]
 
   resources :orders, only: [:show, :index, :edit] do
-    collection do
-      post "add_to_cart", to: 'orders#add_to_cart', as: :add_to_cart
-    end
     member do
       post "place", to: 'orders#place_order'
       post "confirm", to: 'orders#confirm_order'
     end
   end
 
-  resources :line_items, only: [:update, :destroy]
+  resources :line_items, only: [:update, :destroy] do
+    collection do
+      post "add_to_cart", to: 'line_items#add_to_cart', as: :add_to_cart
+    end
+  end
 end

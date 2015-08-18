@@ -30,7 +30,7 @@
   <%= @book.price.format %>
 </p>
 
-<%= form_tag add_to_cart_orders_path, method: "post", as: 'line_item' do %>
+<%= form_tag add_to_cart_line_items_path, method: "post" do %>
   <%= label_tag 'line_item_quantity', "Quantity" %>
   <%= text_field_tag 'line_item[quantity]', 1, id: 'line_item_quantity' %>
   <%= hidden_field_tag 'line_item[book_id]', @book.id %>

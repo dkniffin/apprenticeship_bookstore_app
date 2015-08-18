@@ -23,22 +23,6 @@ class OrdersController < InheritedResources::Base
     end
   end
 
-  # PUT /orders/add_to_cart
-  def add_to_cart
-    li = LineItem.create(line_item_params)
-    current_user.cart.add_line_item(li)
-
-    respond_to do |format|
-      if current_user.cart.save
-        format.html { redirect_to books_url, notice: 'Book was added to cart.' }
-        format.json { render books_url, status: :created }
-      else
-        format.html { redirect_to book_url(line_item_params[:book_id]) }
-        format.json { render json: current_user.cart.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # PUT /orders/:id/place_order
   def place_order
     if @order.user.stripe_customer_token.nil?
@@ -63,10 +47,6 @@ class OrdersController < InheritedResources::Base
     # Use callbacks to share common setup or constraints between actions.
     def set_order
       @order = current_user.orders.find(params[:id])
-    end
-
-    def line_item_params
-      params.require(:line_item).permit(:quantity, :book_id)
     end
 
     def user_params

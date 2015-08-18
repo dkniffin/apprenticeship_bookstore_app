@@ -21,6 +21,22 @@ class LineItemsController < InheritedResources::Base
     end
   end
 
+  # PUT /orders/add_to_cart
+  def add_to_cart
+    li = LineItem.create(line_item_params)
+    current_user.cart.add_line_item(li)
+
+    respond_to do |format|
+      if current_user.cart.save
+        format.html { redirect_to books_url, notice: 'Book was added to cart.' }
+        format.json { render books_url, status: :created }
+      else
+        format.html { redirect_to book_url(line_item_params[:book_id]) }
+        format.json { render json: current_user.cart.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_line_item
