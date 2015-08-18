@@ -9,7 +9,7 @@ class Order < ActiveRecord::Base
   end
 
   def total
-    if line_items.length == 0
+    if line_items.count == 0
       Money.new(0)
     else
       line_items.map{|li| li.price}.reduce(:+)
@@ -17,7 +17,7 @@ class Order < ActiveRecord::Base
   end
 
   def completed?
-    ! stripe_token.nil?
+    stripe_token.present?
   end
 
   def charge_card
